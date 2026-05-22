@@ -1,13 +1,102 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Profesional {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  color     String?
+  createdAt DateTime @default(now())
+  turnos    Turno[]
+}
+
+model Cliente {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  telefono  String?  @unique
+  email     String?  @unique
+  notas     String?
+  createdAt DateTime @default(now())
+  turnos    Turno[]
+}
+
+model Servicio {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  duracion  Int
+  precio    Float
+  createdAt DateTime @default(now())
+  turnos    Turno[]
+}
+
+model Turno {
+  id            Int         @id @default(autoincrement())
+  fecha         DateTime
+  estado        EstadoTurno @default(PENDIENTE)
+  observaciones String?
+  clienteId     Int
+  profesionalId Int
+  servicioId    Int
+  createdAt     DateTime    @default(now())
+  movimiento    Movimiento?
+  cliente       Cliente     @relation(fields: [clienteId], references: [id])
+  profesional   Profesional @relation(fields: [profesionalId], references: [id])
+  servicio      Servicio    @relation(fields: [servicioId], references: [id])
+  @@unique([profesionalId, fecha])
+}
+
+model Movimiento {
+  id          Int            @id @default(autoincrement())
+  tipo        TipoMovimiento
+  monto       Float
+  metodoPago  MetodoPago
+  descripcion String?
+  turnoId     Int?           @unique
+  giftCardId  Int?
+  createdAt   DateTime       @default(now())
+  giftCard    GiftCard?      @relation(fields: [giftCardId], references: [id])
+  turno       Turno?         @relation(fields: [turnoId], references: [id])
+}
+
+model GiftCard {
+  id              Int          @id @default(autoincrement())
+  codigo          String       @unique
+  montoInicial    Float
+  saldoDisponible Float
+  activa          Boolean      @default(true)
+  createdAt       DateTime     @default(now())
+  movimientos     Movimiento[]
+}
+
+enum EstadoTurno {
+  PENDIENTE
+  CONFIRMADO
+  FINALIZADO
+  CANCELADO
+}
+
+enum TipoMovimiento {
+  INGRESO
+  EGRESO
+}
+
+enum MetodoPago {
+  EFECTIVO
+  MERCADOPAGO
+  TRANSFERENCIA
+  TARJETA
+  GIFT_CARD
 }
