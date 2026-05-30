@@ -4,6 +4,7 @@ import servicioRoutes from "./routes/servicio.routes";
 import profesionalRoutes from "./routes/profesional.routes";
 import clienteRoutes from "./routes/cliente.routes";
 import movimientoRoutes from "./routes/movimiento.routes";
+import giftCardRoutes from "./routes/giftCard.routes";
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.use("/api/servicios", servicioRoutes);
 app.use("/api/profesionales", profesionalRoutes);
 app.use("/api/clientes", clienteRoutes);
 app.use("/api/movimientos", movimientoRoutes);
+app.use("/api/giftcards", giftCardRoutes);
 
 export default app;
