@@ -258,3 +258,80 @@ export const deleteTurno = async (req: Request, res: Response) => {
         });
     }
 };
+
+export const finalizarTurno=async(
+    req: Request,
+    res: Response
+) =>{
+    try{
+        const { id } = req.params;
+
+        const {
+            monto,
+            metodoPago,
+            descripcion,
+        } =req.body;
+
+        const turno=await prisma.turno.findUnique({
+            where:{
+                id: Number(id),
+            },
+            include:{
+                servicio: true,
+                movimiento: true,
+            },
+        });
+        if(!turno){
+            return res.status(404).json({
+                message: "Turno no encontrado",
+            });
+        }
+        if(turno.estado==="FINALIZADO"){
+            return res.status(400).json({
+                message: "El turno ya está finalizado",
+            });
+        }
+        if(turno.movimiento){
+            return res.status(400).json({
+                message: "El movimiento ya existe",
+            });
+        }
+        const resultado=await prisma.$transaction(
+            async (tx) =>{
+                const turnoActualizado=
+                    await tx.turno.update({
+                        where:{
+                            id: turno.id,
+                        },
+                        data:{
+                            estado: "FINALIZADO",
+                        },
+                    });
+                const movimiento=
+                    await tx.movimiento.create({
+                        data:{
+                            tipo: "INGRESO",
+                            monto:
+                                monto ??
+                                turno.servicio.precio,
+                            metodoPago,
+                            descripcion:
+                                descripcion ||
+                                `Ingreso generado por turno #${turno.id}`,
+                            turnoId: turno.id,
+                        },
+                    });
+                return{
+                    turnoActualizado,
+                    movimiento,
+                };
+            }
+        );
+        res.json(resultado);
+    }catch(error){
+        console.error(error);
+        res.status(500).json({
+            message: "Error al finalizar el turno",
+        });
+    }
+};
