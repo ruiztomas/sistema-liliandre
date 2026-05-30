@@ -3,9 +3,33 @@ import { prisma } from "../lib/prisma";
 
 export const getTurnos = async (_req: Request, res: Response) => {
     try {
+        const {
+            estado,
+            profesionalId,
+            clienteId,
+            fecha,
+        } = _req.query;
         const turnos = await prisma.turno.findMany({
-            orderBy: {
-                fecha: "asc",
+            where: {
+                ...(estado &&{
+                    estado: estado as any,
+                }),
+                ...(profesionalId &&{
+                    profesionalId: Number(profesionalId),
+                }),
+                ...(clienteId &&{
+                    clienteId: Number(clienteId),
+                }),
+                ...(fecha &&{
+                    fecha:{
+                        gte: new Date(
+                            `${fecha}T00:00:00`
+                        ),
+                        lte: new Date(
+                            `${fecha}T23:59:59`
+                        ),
+                    },
+                }),
             },
 
             include: {
@@ -13,6 +37,10 @@ export const getTurnos = async (_req: Request, res: Response) => {
                 servicio: true,
                 profesional: true,
                 movimiento: true,
+            },
+
+            orderBy:{
+                fecha: "asc",
             },
         });
 
