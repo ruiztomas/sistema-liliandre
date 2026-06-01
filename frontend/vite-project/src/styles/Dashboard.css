@@ -1,0 +1,93 @@
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#F5F4F0;color:#1a1a1a;padding-bottom:3rem}
+.topbar{background:#fff;border-bottom:0.5px solid #e5e4e0;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:10}
+.logo{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:600}
+.logo span{color:#7F77DD}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.topbar-date{font-size:13px;color:#888}
+.avatar{width:32px;height:32px;border-radius:50%;background:#EEEDFE;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#534AB7}
+.wrap{max-width:900px;margin:0 auto;padding:1.5rem;display:flex;flex-direction:column;gap:2rem}
+/* SECTION HEADERS */
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.sec-title{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:600}
+.sec-divider{flex:1;height:0.5px;background:#e5e4e0}
+/* ALERT */
+.alert{background:#FAEEDA;border:0.5px solid #EF9F27;border-radius:10px;padding:10px 14px;font-size:13px;color:#633806;display:flex;align-items:center;gap:8px}
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.metric{background:#fff;border:0.5px solid #e5e4e0;border-radius:12px;padding:1rem}
+.metric-label{font-size:12px;color:#888;margin-bottom:6px}
+.metric-value{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600}
+.metric-value.green{color:#1D9E75}
+.metric-value.purple{color:#7F77DD}
+.metric-value.amber{color:#BA7517}
+.metric-value.red{color:#D85A30}
+.metric-sub{font-size:11px;color:#aaa;margin-top:3px}
+.metric-sub.warn{color:#BA7517}
+/* CARDS */
+.card{background:#fff;border:0.5px solid #e5e4e0;border-radius:12px;padding:1.1rem}
+.card-title{font-size:13px;font-weight:500;margin-bottom:12px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* ROWS */
+.row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-top:0.5px solid #f0eeea}
+.row:first-of-type{border-top:none;padding-top:0}
+/* PROF */
+.prof-info{display:flex;align-items:center;gap:8px}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500}
+.av-li{background:#E1F5EE;color:#0F6E56}
+.av-as{background:#EEEDFE;color:#534AB7}
+.av-si{background:#FAEEDA;color:#854F0B}
+.prof-name{font-size:13px;font-weight:500}
+.prof-sub{font-size:11px;color:#aaa}
+/* BADGES */
+.badge{font-size:11px;padding:2px 8px;border-radius:99px;font-weight:500}
+.b-li{background:#E1F5EE;color:#0F6E56}
+.b-as{background:#EEEDFE;color:#534AB7}
+.b-si{background:#FAEEDA;color:#854F0B}
+.b-in{background:#EAF3DE;color:#3B6D11}
+.b-out{background:#FAECE7;color:#993C1D}
+.b-gc{background:#E6F1FB;color:#185FA5}
+.b-used{background:#f0eeea;color:#888}
+/* PAGO DOT */
+.dot{width:8px;height:8px;border-radius:50%;margin-right:8px;display:inline-block}
+/* AGENDA */
+.agenda-time{font-size:12px;color:#aaa;min-width:40px}
+.agenda-name{font-size:13px;font-weight:500}
+.agenda-serv{font-size:11px;color:#aaa}
+/* MOVIMIENTOS */
+.mov-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;font-weight:600}
+.mov-in{background:#EAF3DE;color:#3B6D11}
+.mov-out{background:#FAECE7;color:#993C1D}
+.mov-concepto{font-size:13px;font-weight:500}
+.mov-meta{font-size:11px;color:#aaa;margin-top:3px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.mov-amount{font-size:14px;font-weight:500;text-align:right}
+.mov-amount.in{color:#1D9E75}
+.mov-amount.out{color:#D85A30}
+.mov-pago-label{font-size:11px;color:#888;text-align:right;margin-top:2px}
+/* BARRAS */
+.bar-wrap{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bar-label{font-size:12px;color:#888;min-width:65px}
+.bar-bg{flex:1;background:#f0eeea;border-radius:99px;height:7px;overflow:hidden}
+.bar-fill{height:7px;border-radius:99px}
+.bar-val{font-size:12px;font-weight:500;min-width:58px;text-align:right}
+/* GIFT CARD */
+.gc-visual{background:linear-gradient(135deg,#534AB7 0%,#7F77DD 100%);border-radius:16px;padding:1.5rem;color:#fff;position:relative;overflow:hidden;min-height:130px}
+.gc-visual::before{content:'';position:absolute;right:-20px;top:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.08)}
+.gc-logo{font-family:'Fraunces',serif;font-size:0.95rem;font-weight:600;opacity:0.85;margin-bottom:0.8rem}
+.gc-code{font-size:1.1rem;font-weight:500;letter-spacing:0.1em;margin-bottom:0.4rem}
+.gc-meta{font-size:12px;opacity:0.75}
+.gc-amount{position:absolute;bottom:1.25rem;right:1.25rem;font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600}
+.gc-num{font-family:'Fraunces',serif;font-size:0.95rem;font-weight:600;color:#7F77DD;min-width:100px}
+.gc-beneficiario{font-size:13px;font-weight:500}
+.gc-comprador{font-size:11px;color:#aaa;margin-top:2px}
+.gc-monto{font-size:14px;font-weight:500;color:#1D9E75}
+.gc-saldo{font-size:11px;color:#aaa;margin-top:2px}
+/* FILTROS */
+.filter-row{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+.filter-btn{background:#fff;border:0.5px solid #e5e4e0;border-radius:8px;padding:5px 14px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;color:#888}
+.filter-btn.active{background:#EEEDFE;border-color:#7F77DD;color:#534AB7}
+select{background:#fff;border:0.5px solid #e5e4e0;border-radius:8px;padding:5px 12px;font-size:13px;font-family:'DM Sans',sans-serif;color:#1a1a1a;outline:none;cursor:pointer}
+@media(max-width:600px){
+    .metrics{grid-template-columns:1fr 1fr}
+    .two-col{grid-template-columns:1fr}
+}
