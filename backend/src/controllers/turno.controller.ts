@@ -300,6 +300,8 @@ export const finalizarTurno=async(
             descripcion,
         } =req.body;
 
+        console.log(req.body);
+
         const turno=await prisma.turno.findUnique({
             where:{
                 id: Number(id),

@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import turnosRoutes from "./routes/turnos.routes";
 import servicioRoutes from "./routes/servicio.routes";
 import profesionalRoutes from "./routes/profesional.routes";
@@ -9,6 +10,7 @@ import dashboardRoutes from "./routes/dashboard.routes";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use("/api/turnos", turnosRoutes);
 app.use("/api/servicios", servicioRoutes);
