@@ -85,54 +85,38 @@ export const getGiftCardByCodigo=
         }
     };
 
-export const createdGiftCard = async (
-    req: Request, 
-    res: Response
-) => {
+export const createdGiftCard = async (req: Request, res: Response)=>{
     try{
-        const{
-            codigo,
-            montoInicial,
-        } = req.body;
-        if(
-            !codigo ||
-            !montoInicial
-        ) {
-            return res.status(400).json({
-                message: 
-                "Codigo y monto son obligatorios",
-            });
+        const{codigo, montoInicial,}=req.body;
+        if(!codigo || !montoInicial) {
+            return res.status(400).json({message: "Codigo y monto son obligatorios",});
         }
-    
-        const existente=
-            await prisma.giftCard.findUnique({
-                where: {
+        const existente=await prisma.giftCard.findUnique({where:{codigo,},});
+        if(existente){return res.status(400).json({message: "Ya existe una gift card con ese codigo",});}
+        const resultado=await prisma.$transaction(async(tx)=>{
+            const giftCard=await prisma.giftCard.create({
+                data:{
                     codigo,
+                    montoInicial:Number(montoInicial),
+                    saldoDisponible:Number(montoInicial),
                 },
             });
-        if(existente){
-            return res.status(400).json({
-                message: 
-                    "Ya existe una gift card con ese codigo",
-            });
-        }
-        const giftCard =
-            await prisma.giftCard.create({
-                data: {
-                    codigo,
-                    montoInicial:
-                        Number(montoInicial),
-                    saldoDisponible:
-                        Number(montoInicial),
+            const movimiento=await tx.movimiento.create({
+                data:{
+                    tipo:"INGRESO",
+                    monto:Number(montoInicial),
+                    metodoPago:"GIFT_CARD",
+                    descripcion:`Venta Gift Card${codigo}`,
+                    giftCardId: giftCard.id,
                 },
             });
-        res.status(201).json(giftCard);
+            return{giftCard, movimiento};
+            }  
+        )
+        res.status(201).json(resultado);
     }catch(error){
         console.error(error);
-        res.status(500).json({
-            message:
-                "Error al crear gift card",
-        });
+        res.status(500).json({message:"Error al crear gift card",});
     }
 };
 
@@ -214,20 +198,21 @@ export const consumirGiftCard = async (
         const resultado=
             await prisma.$transaction(
                 async(tx)=>{
+                    const nuevoSaldo=giftCard.saldoDisponible-Number(monto);
                     const giftCardActualizada =
                         await tx.giftCard.update({
                             where: {
                                 id: giftCard.id,
                             },
                             data: {
-                                saldoDisponible:
-                                    giftCard.saldoDisponible - Number(monto),
+                                saldoDisponible:nuevoSaldo,
+                                activa:nuevoSaldo>0,
                             },
                         });
                     const movimiento=
                         await tx.movimiento.create({
                             data: {
-                                tipo:"INGRESO",
+                                tipo:"EGRESO",
                                 monto: Number(monto),
                                 metodoPago: "GIFT_CARD",
                                 descripcion:

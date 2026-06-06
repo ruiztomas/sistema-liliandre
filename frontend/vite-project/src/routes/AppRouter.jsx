@@ -15,6 +15,7 @@ import EditarCliente from "../pages/EditarCliente";
 import Profesionales from "../pages/Profesionales";
 import Servicios from "../pages/Servicios";
 import Movimientos from "../pages/Movimientos";
+import GiftCards from "../pages/GiftCards";
 
 export default function AppRouter() {
     return (
@@ -35,6 +36,7 @@ export default function AppRouter() {
                 <Link to="/profesionales">Profesionales</Link>
                 <Link to="/servicios">Servicios</Link>
                 <Link to="/movimientos">Movimientos</Link>
+                <Link to="/giftcards">Gift Cards</Link>
             </nav>
             <Routes>
                 <Route path="/" element={<Dashboard />} />
@@ -47,6 +49,7 @@ export default function AppRouter() {
                 <Route path="/profesionales" element={<Profesionales />} />
                 <Route path="/servicios" element={<Servicios />} />
                 <Route path="/movimientos" element={<Movimientos />} />
+                <Route path="/giftcards" element={<GiftCards />} />
             </Routes>
         </BrowserRouter>
     );

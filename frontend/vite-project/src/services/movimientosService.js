@@ -1,4 +1,4 @@
-const API_URL="http::localhost:3000";
+const API_URL="http://localhost:3000";
 
 export const getMovimientos=async()=>{
     const res=await fetch(`${API_URL}/api/movimientos`);
