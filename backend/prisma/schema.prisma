@@ -35,8 +35,7 @@ model Cliente {
 
 model Servicio {
   id        Int      @id @default(autoincrement())
-  nombre    String
-  duracion  Int
+  nombre    String   @unique
   precio    Float
   createdAt DateTime @default(now())
   turnos    Turno[]
@@ -50,6 +49,7 @@ model Turno {
   clienteId     Int
   profesionalId Int
   servicioId    Int
+  duracion      Int?
   createdAt     DateTime    @default(now())
   movimiento    Movimiento?
   cliente       Cliente     @relation(fields: [clienteId], references: [id])

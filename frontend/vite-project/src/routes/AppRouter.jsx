@@ -13,6 +13,8 @@ import Clientes from "../pages/Clientes";
 import ClienteDetalle from "../pages/ClienteDetalle";
 import EditarCliente from "../pages/EditarCliente";
 import Profesionales from "../pages/Profesionales";
+import Servicios from "../pages/Servicios";
+import Movimientos from "../pages/Movimientos";
 
 export default function AppRouter() {
     return (
@@ -31,6 +33,8 @@ export default function AppRouter() {
                 <Link to="/calendario">Calendario</Link>
                 <Link to="/clientes">Clientes</Link>
                 <Link to="/profesionales">Profesionales</Link>
+                <Link to="/servicios">Servicios</Link>
+                <Link to="/movimientos">Movimientos</Link>
             </nav>
             <Routes>
                 <Route path="/" element={<Dashboard />} />
@@ -41,6 +45,8 @@ export default function AppRouter() {
                 <Route path="/clientes/:id" element={<ClienteDetalle />} />
                 <Route path="/clientes/:id/editar" element={<EditarCliente />} />
                 <Route path="/profesionales" element={<Profesionales />} />
+                <Route path="/servicios" element={<Servicios />} />
+                <Route path="/movimientos" element={<Movimientos />} />
             </Routes>
         </BrowserRouter>
     );

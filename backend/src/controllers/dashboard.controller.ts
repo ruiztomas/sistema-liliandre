@@ -44,6 +44,9 @@ export const getDashboard=async(
             profesionales,
             ingresosMes,
             egresosMes,
+            agendaHoy,
+            ingresosPorMetodo,
+            ingresosPorProfesional,
         ]=await Promise.all([
             prisma.turno.count({
                 where: {
@@ -79,12 +82,69 @@ export const getDashboard=async(
                     },
                 },
             }),
+            prisma.turno.findMany({
+                where:{
+                    fecha:{
+                        gte: inicioDia,
+                        lte: finDia,
+                    },
+                },
+                include:{
+                    cliente: true,
+                    servicio: true,
+                    profesional: true,
+                },
+                orderBy:{
+                    fecha: "asc",
+                },
+            }),
+            prisma.movimiento.groupBy({
+                by:["metodoPago"],
+                where:{
+                    tipo:"INGRESO",
+                    createdAt:{
+                        gte: inicioMes,
+                        lte: finMes,
+                    },
+                },
+                _sum:{
+                    monto: true,
+                },
+            }),
+            prisma.turno.findMany({
+                where:{
+                    estado:"FINALIZADO",
+                    fecha:{
+                        gte: inicioMes,
+                        lte: finMes,
+                    },
+                },
+                include:{
+                    profesional: true,
+                    movimiento: true,
+                },
+            }),
         ]);
 
         const totalIngresos=
             ingresosMes._sum.monto || 0;
         const totalEgresos=
             egresosMes._sum.monto || 0;
+        const profesionalesMap: Record<number, any>={};
+        for(const turno of ingresosPorProfesional){
+            const profesionalId=turno.profesional.id;
+            if(!profesionalesMap[profesionalId]){
+                profesionalesMap[profesionalId]={
+                    nombre: turno.profesional.nombre,
+                    color: turno.profesional.color,
+                    total:0,
+                    cantidad:0,
+                };
+            }
+            profesionalesMap[profesionalId].total+=turno.movimiento?.monto || 0;
+            profesionalesMap[profesionalId].cantidad+=1;
+        }
+        const resumenProfesionales=Object.values(profesionalesMap);
         res.json({
             turnosHoy,
             clientes,
@@ -92,6 +152,9 @@ export const getDashboard=async(
             ingresosMes: totalIngresos,
             egresosMes: totalEgresos,
             balanceMes: totalIngresos - totalEgresos,
+            agendaHoy,
+            ingresosPorMetodo,
+            resumenProfesionales,
         });
     }catch(error){
         console.error(error);

@@ -43,17 +43,29 @@ export const getServicioById = async (req: Request, res: Response) => {
 
 export const createServicio = async (req: Request, res: Response) => {
     try {
-        const { nombre, duracion, precio } = req.body;
+        const { nombre, precio } = req.body;
 
-        if(!nombre || !duracion || !precio) {
+        if(!nombre || !precio) {
             return res.status(400).json({
                 message: 'Faltan campos obligatorios',
             }); 
         }
+        const servicioExistente=await prisma.servicio.findFirst({
+            where:{
+                nombre:{
+                    equals:nombre,
+                    mode:"insensitive",
+                },
+            },
+        });
+        if(servicioExistente){
+            return res.status(400).json({
+                message: "Ya existe un servicio con ese nombre",
+            });
+        }
         const servicio = await prisma.servicio.create({
             data:{
                 nombre,
-                duracion: Number(duracion),
                 precio: Number(precio),
             },
         });
