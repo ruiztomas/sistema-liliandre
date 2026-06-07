@@ -1,32 +1,31 @@
-import "../styles/Dashboard.css";
+{/*import "../styles/Dashboard.css";
 import Topbar from "../components/Topbar";
 import AlertBox from "../components/AlertBox";
 import DashboardSection from "../components/DashboardSection";
-import MovimientosSection from "../components/MovimientosSection";
-import IngresosSection from "../components/IngresosSection";
-import GiftCardsSection from "../components/GiftCardsSection";
 
 export default function Dashboard() {
     return (
         <>
         <meta charSet="UTF-8" />
-        <Topbar />
         <div className="wrap">
-            {/* ALERTA */}
+            {/* ALERTA 
             <AlertBox />
 
-            {/* DASHBOARD */} 
+            {/* DASHBOARD 
             <DashboardSection />
-
-            {/* MOVIMIENTOS */}
-            <MovimientosSection />
-        
-            {/* INGRESOS */}
-            <IngresosSection />
-
-            {/* GIFT CARD */}
-            <GiftCardsSection />
         </div>
     </>
+    );
+}*/}
+import "../styles/Dashboard.css";
+import DashboardSection from "../components/DashboardSection";
+import AlertBox from "../components/AlertBox";
+
+export default function Dashboard() {
+    return (
+        <div className="wrap">
+            <AlertBox />
+            <DashboardSection />
+        </div>
     );
 }

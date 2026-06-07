@@ -1,0 +1,169 @@
+/* GIFT CARD */
+/*.gc-visual{background:linear-gradient(135deg,#534AB7 0%,#7F77DD 100%);border-radius:16px;padding:1.5rem;color:#fff;position:relative;overflow:hidden;min-height:130px}
+.gc-visual::before{content:'';position:absolute;right:-20px;top:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.08)}
+.gc-logo{font-family:'Fraunces',serif;font-size:0.95rem;font-weight:600;opacity:0.85;margin-bottom:0.8rem}
+.gc-code{font-size:1.1rem;font-weight:500;letter-spacing:0.1em;margin-bottom:0.4rem}
+.gc-meta{font-size:12px;opacity:0.75}
+.gc-amount{position:absolute;bottom:1.25rem;right:1.25rem;font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600}
+.gc-num{font-family:'Fraunces',serif;font-size:0.95rem;font-weight:600;color:#7F77DD;min-width:100px}
+.gc-beneficiario{font-size:13px;font-weight:500}
+.gc-comprador{font-size:11px;color:#aaa;margin-top:2px}
+.gc-monto{font-size:14px;font-weight:500;color:#1D9E75}
+.gc-saldo{font-size:11px;color:#aaa;margin-top:2px}*/
+/* =========================
+   GIFT CARD DESTACADA
+========================= */
+
+.gc-visual {
+    background: linear-gradient(
+        135deg,
+        #534AB7 0%,
+        #7F77DD 100%
+    );
+
+    border-radius: 16px;
+    padding: 1.5rem;
+    padding-bottom: 4rem;
+
+    color: #fff;
+
+    position: relative;
+    overflow: hidden;
+
+    min-height: 180px;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: transform 0.2s ease;
+}
+
+.gc-visual:hover {
+    transform: translateY(-2px);
+}
+
+.gc-visual::before {
+    content: "";
+
+    position: absolute;
+    right: -20px;
+    top: -20px;
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.gc-logo {
+    font-family: "Fraunces", serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    opacity: 0.85;
+
+    margin-bottom: 0.8rem;
+
+    position: relative;
+    z-index: 1;
+}
+
+.gc-code {
+    font-size: 1rem;
+    font-weight: 500;
+
+    letter-spacing: 0.15em;
+    font-family: monospace;
+
+    margin-bottom: 0.4rem;
+
+    position: relative;
+    z-index: 1;
+}
+
+.gc-meta {
+    font-size: 12px;
+    opacity: 0.8;
+
+    position: relative;
+    z-index: 1;
+}
+
+.gc-amount {
+    position: absolute;
+
+    bottom: 1.25rem;
+    right: 1.25rem;
+
+    font-family: "Fraunces", serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+
+    z-index: 1;
+}
+
+/* =========================
+   LISTADO DE GIFT CARDS
+========================= */
+
+.gc-num {
+    width: 140px;
+    flex-shrink: 0;
+
+    font-family: "Fraunces", serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    color: #7F77DD;
+}
+
+.gc-beneficiario {
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #222;
+}
+
+.gc-comprador {
+    font-size: 11px;
+    color: #aaa;
+
+    margin-top: 2px;
+}
+
+.gc-monto {
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #1D9E75;
+}
+
+.gc-saldo {
+    font-size: 11px;
+    color: #888;
+
+    margin-top: 2px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+    .gc-visual {
+        min-height: auto;
+    }
+
+    .gc-amount {
+        position: static;
+        margin-top: 1rem;
+        text-align: right;
+    }
+
+    .gc-num {
+        width: auto;
+        min-width: 100px;
+    }
+}
